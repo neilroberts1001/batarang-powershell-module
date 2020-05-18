@@ -1,8 +1,8 @@
 <# 
  .Synopsis
-  Un-Register NAVAdminTool commands that are used for Business Central.
+  Unregister NAVAdminTool commands that are used for Business Central.
  .Description
-  Use the current PowerShell prompt to un-register NAVAdminTool commands that are used for Business Central.
+  Use the current PowerShell prompt to unregister NAVAdminTool commands that are used for Business Central.
  .Example
   UnRegister-NAVAdminToolSnapIn
 #>

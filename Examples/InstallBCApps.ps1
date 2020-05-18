@@ -1,6 +1,6 @@
 $ServiceTierPath = "C:\ProgramData\NavContainerHelper\15.0.36560.36626-w1-Files\ServiceTier\Program Files\Microsoft Dynamics NAV\150\Service"
 
-$FinalResult = Get-NAVAppDependencies -Path "C:\Users\neilr\Desktop\VKB Apps\Appsv15" -ServiceTierPath $ServiceTierPath
+$FinalResult = Get-NAVAppDependencies -Path "C:\Users\neilr\Desktop\Apps\Appsv15" -ServiceTierPath $ServiceTierPath
 
 foreach ($AppFile in $FinalResult | Sort-Object ProcessOrder -Descending) {
     if (Get-NAVAppInfo -Serverinstance $ServerInstance -Name $AppFile.Name -Version $AppFile.Version) {
