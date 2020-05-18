@@ -12,7 +12,7 @@
  .Example
   Get-AppDependencies -Path "C:\Temp\Appsv15" -ServiceTierPath "C:\ProgramData\NavContainerHelper\15.0.36560.36626-w1-Files\ServiceTier\Program Files\Microsoft Dynamics NAV\150\Service"
 #>
-function Get-BCAppDependencies {
+function Get-NAVAppDependencies {
     [CmdletBinding()]
     param(    
         [Parameter(Mandatory = $true)]        
@@ -92,5 +92,3 @@ function Get-BCAppDependencies {
 
     return $ProcessedResults
 }
-
-Export-ModuleMember -Function Get-BCAppDependencies

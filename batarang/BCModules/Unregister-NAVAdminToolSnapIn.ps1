@@ -7,25 +7,21 @@
   UnRegister-NAVAdminToolSnapIn
 #>
 function Unregister-NAVAdminToolSnapIn {
-    [CmdletBinding()]
-    param(
-        [switch] $ShowMessage
-    )
-    function UnregisterSnapIn($snapIn) {
+    function UnregisterSnapIn {
+        [CmdletBinding()]
+        param(
+            [string] $snapIn
+        )
 
         if (Get-Module $snapIn) {
             Remove-Module $snapIn
-            if ($ShowMessage) {
-                write-host -fore Yellow "$snapIn has been removed"
-            }
+            Write-Output -fore Yellow "$snapIn has been removed"
         }
     }
 
     # Register Microsoft Dynamics NAV Management Snap-in
-    UnregisterSnapIn "Microsoft.Dynamics.Nav.Management"
+    UnregisterSnapIn -snapIn "Microsoft.Dynamics.Nav.Management"
 
     # Register Microsoft Dynamics NAV Apps Management Snap-in
-    UnregisterSnapIn "Microsoft.Dynamics.Nav.Apps.Management"
+    UnregisterSnapIn -snapIn "Microsoft.Dynamics.Nav.Apps.Management"
 }
-
-Export-ModuleMember -Function Unregister-NAVAdminToolSnapIn

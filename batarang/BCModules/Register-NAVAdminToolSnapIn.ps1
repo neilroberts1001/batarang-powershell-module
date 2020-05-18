@@ -11,11 +11,6 @@
   Register-NAVAdminToolSnapIn -ServiceTierPath "C:\ProgramData\NavContainerHelper\15.0.36560.36626-w1-Files\ServiceTier\Program Files\Microsoft Dynamics NAV\150\Service"
 
   Register-NAVAdminToolSnapIn -ServiceTierPath "C:\ProgramData\NavContainerHelper\15.0.36560.36626-w1-Files\ServiceTier\Program Files\Microsoft Dynamics NAV\150\Service" -PrintCommands
-    Welcome to the Server Admin Tool Shell!
-    For a complete list of Server cmdlets type
-
-    Get-Command -Module Microsoft.Dynamics.Nav.Management, Microsoft.Dynamics.Nav.Apps.Management
-
 
     CommandType     Name                                               Version    Source                                                                                                          
     -----------     ----                                               -------    ------                                                                                                          
@@ -138,14 +133,20 @@ function Register-NAVAdminToolSnapIn {
         return ($null -ne $errorVariable -and $errorVariable.Count -gt 0)
     }
 
-    function RegisterSnapIn($snapIn, $VisibleName) {
-
+    function RegisterSnapIn {
+        [CmdletBinding()]
+        param(
+            [Parameter(Mandatory = $true)]
+            [string] $snapIn,
+            [Parameter(Mandatory = $true)]
+            [string] $ServiceTier
+        )
         if (Get-Module $snapIn) {
             return
         }
 
-        $snapInAssembly = Join-Path $ServiceTierPath "\$snapIn.psd1"
-        if (!(Test-Path $snapInAssembly)) { $snapInAssembly = Join-Path $ServiceTierPath "\$snapIn.dll" }
+        $snapInAssembly = Join-Path $ServiceTier "\$snapIn.psd1"
+        if (!(Test-Path $snapInAssembly)) { $snapInAssembly = Join-Path $ServiceTier "\$snapIn.dll" }
 
         # First try to import the module
         Import-Module $snapInAssembly -ErrorVariable errorVariable -ErrorAction SilentlyContinue
@@ -154,8 +155,7 @@ function Register-NAVAdminToolSnapIn {
             # fallback to add the snap-in
             if ($null -eq (Get-PSSnapin -Name $snapIn -ErrorAction SilentlyContinue)) {
                 if ($null -eq (Get-PSSnapin -Registered $snapIn -ErrorAction SilentlyContinue)) {
-                    write-host -fore Red "Couldn't register $VisibleName"
-                    write-host -fore Red "Some cmdlets may not be available`n"
+                    Write-Error "Some cmdlets may not be available`n"
                 }
                 else {
                     Add-PSSnapin $snapIn
@@ -165,20 +165,13 @@ function Register-NAVAdminToolSnapIn {
     }
 
     # Register Microsoft Dynamics NAV Management Snap-in
-    RegisterSnapIn "Microsoft.Dynamics.Nav.Management" "Microsoft Dynamics NAV Management Snap-in" $ServiceTierPath
+    RegisterSnapIn -snapIn "Microsoft.Dynamics.Nav.Management" -ServiceTier $ServiceTierPath
 
     # Register Microsoft Dynamics NAV Apps Management Snap-in
-    RegisterSnapIn "Microsoft.Dynamics.Nav.Apps.Management" "Microsoft Dynamics NAV App Management Snap-in" $ServiceTierPath
+    RegisterSnapIn -snapIn "Microsoft.Dynamics.Nav.Apps.Management" -ServiceTier $ServiceTierPath
 
     if ($PrintCommands) {
-        # Welcome message
-        write-host "`nWelcome to the Server Admin Tool Shell!"
-        write-host "For a complete list of Server cmdlets type`n"
-
-        write-host -fore Yellow "Get-Command -Module Microsoft.Dynamics.Nav.Management, Microsoft.Dynamics.Nav.Apps.Management`n"
         # Print available commands
         Get-Command -Module Microsoft.Dynamics.Nav.Management, Microsoft.Dynamics.Nav.Apps.Management
     }
 }
-
-Export-ModuleMember -Function Register-NAVAdminToolSnapIn
