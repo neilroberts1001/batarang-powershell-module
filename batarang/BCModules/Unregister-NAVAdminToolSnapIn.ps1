@@ -15,7 +15,6 @@ function Unregister-NAVAdminToolSnapIn {
 
         if (Get-Module $snapIn) {
             Remove-Module $snapIn
-            Write-Output -fore Yellow "$snapIn has been removed"
         }
     }
 
