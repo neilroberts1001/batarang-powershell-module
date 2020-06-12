@@ -149,7 +149,7 @@ function Register-NAVAdminToolSnapIn {
         if (!(Test-Path $snapInAssembly)) { $snapInAssembly = Join-Path $ServiceTier "\$snapIn.dll" }
 
         # First try to import the module
-        Import-Module $snapInAssembly -ErrorVariable errorVariable -ErrorAction SilentlyContinue
+        Import-Module $snapInAssembly -ErrorVariable errorVariable -ErrorAction SilentlyContinue -Global
 
         if (Test-ErrorVariable -eq $true) {
             # fallback to add the snap-in
