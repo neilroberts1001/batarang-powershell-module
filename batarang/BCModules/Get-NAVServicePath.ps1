@@ -24,3 +24,4 @@ function Get-NAVServicePath()
     return $ServiceExecutable.Directory.FullName
 }
 Set-Alias -Name Get-BcServicePath -Value Get-NAVServicePath
+Export-ModuleMember -Function Get-NAVServicePath -Alias Get-BcServicePath

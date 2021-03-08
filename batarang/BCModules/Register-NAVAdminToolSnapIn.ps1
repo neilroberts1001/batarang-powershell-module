@@ -176,3 +176,4 @@ function Register-NAVAdminToolSnapIn {
     }
 }
 Set-Alias -Name Register-BcAdminToolSnapIn -Value Register-NAVAdminToolSnapIn
+Export-ModuleMember -Function Register-NAVAdminToolSnapIn -Alias Register-BcAdminToolSnapIn

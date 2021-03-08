@@ -25,3 +25,4 @@ function Unregister-NAVAdminToolSnapIn {
     UnregisterSnapIn -snapIn "Microsoft.Dynamics.Nav.Apps.Management"
 }
 Set-Alias -Name Unregister-BcAdminToolSnapIn -Value Unregister-NAVAdminToolSnapIn
+Export-ModuleMember -Function Unregister-NAVAdminToolSnapIn -Alias Unregister-BcAdminToolSnapIn
