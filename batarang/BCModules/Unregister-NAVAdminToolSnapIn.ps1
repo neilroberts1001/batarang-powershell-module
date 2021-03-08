@@ -24,3 +24,4 @@ function Unregister-NAVAdminToolSnapIn {
     # Register Microsoft Dynamics NAV Apps Management Snap-in
     UnregisterSnapIn -snapIn "Microsoft.Dynamics.Nav.Apps.Management"
 }
+Set-Alias -Name Unregister-BcAdminToolSnapIn -Value Unregister-NAVAdminToolSnapIn

@@ -175,3 +175,4 @@ function Register-NAVAdminToolSnapIn {
         Get-Command -Module Microsoft.Dynamics.Nav.Management, Microsoft.Dynamics.Nav.Apps.Management
     }
 }
+Set-Alias -Name Register-BcAdminToolSnapIn -Value Register-NAVAdminToolSnapIn
